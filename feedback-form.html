@@ -5,6 +5,39 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function sendFeedBack() {
+            let name = document.forms["feedback-form"]["name"].value;
+            let email = document.forms["feedback-form"]["email"].value;
+            let dateOfSession = document.forms["feedback-form"]["dateOfSession"].value;
+            let likeAboutSession = document.forms["feedback-form"]["likeAboutSession"].value;
+            let improvement = document.forms["feedback-form"]["improvement"].value;
+            let comments = document.forms["feedback-form"]["comments"].value;
+            let rating = document.forms["feedback-form"]["rating"].value;
+
+            let json= {
+                "rating": rating,
+                "posFeedback": likeAboutSession,
+                "negFeedback": improvement,
+                "comment" :comments,
+                "email" :email,
+                "date" : dateOfSession
+            };
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8081/email");
+
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = () => console.log(xhr.responseText);
+
+            xhr.send(JSON.stringify(json));
+
+
+        }
+
+    </script>
 </head>
 
 <body>
@@ -26,33 +59,34 @@
     <div class="contact-image">
         <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
     </div>
-    <form method="post">
+    <form method="post" name="feedback-form"  onsubmit="return sendFeedBack()" >
         <h3>Send your feedback!</h3>
         <h5>Thanks for providing your feedback, it helps the mentor and the organizers</h5>
         <div>
             <div>
                 <div class="form-group">
-                    <input type="text" name="txtName" class="form-control" placeholder="Your Name" value="" />
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" value="" />
                 </div>
                 <div class="form-group">
-                    <input type="text" name="txtEmail" class="form-control" placeholder="Your Email" value="" />
+                    <input type="text" name="email" class="form-control" placeholder="Your Email" value="" />
+                </div>
+
+                <div class="form-group">
+                    <input type="date" name="dateOfSession" class="form-control" placeholder="Date of session" value="" />
                 </div>
                 <div class="form-group">
-                    <input type="date" name="dtae" class="form-control" placeholder="Date of session" value="" />
+                    <textarea name="likeAboutSession" class="form-control" placeholder="What did you like about the session?" style="width: 100%; height: 150px;"></textarea>
                 </div>
                 <div class="form-group">
-                    <textarea name="txtMsg" class="form-control" placeholder="What did you like about the session?" style="width: 100%; height: 150px;"></textarea>
+                    <textarea name="improvement" class="form-control" placeholder="What can we do to improve?" style="width: 100%; height: 150px;"></textarea>
                 </div>
                 <div class="form-group">
-                    <textarea name="txtMsg" class="form-control" placeholder="What can we do to improve?" style="width: 100%; height: 150px;"></textarea>
-                </div>
-                <div class="form-group">
-                    <textarea name="txtMsg" class="form-control" placeholder="Any other comments?" style="width: 100%; height: 150px;"></textarea>
+                    <textarea name="comments" class="form-control" placeholder="Any other comments?" style="width: 100%; height: 150px;"></textarea>
                 </div>
                 <div class="form-group">
 
                     <div>Please provide your rating:</div>
-                    <select class="form-select" aria-label="Default select example">
+                    <select name="rating" class="form-select" aria-label="Default select example">
                         <option selected>Rating</option>
                         <option value="1">1</option>
                         <option value="2">2</option>

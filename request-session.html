@@ -34,6 +34,40 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+
+    <script>
+        function createSession() {
+            let name = document.forms["session-form"]["first-name"].value+" "+document.forms["session-form"]["last-name"].value;
+
+            let university = document.forms["session-form"]["university"].value;
+            let email = document.forms["session-form"]["email"].value;
+            let address = document.forms["session-form"]["address"].value;
+            let phone = document.forms["session-form"]["phone"].value;
+            let date = document.forms["session-form"]["date"].value;
+            let time = document.forms["session-form"]["date"].value;
+            let question = document.forms["session-form"]["question"].value;
+            let json= {
+    "studentName": name,
+    "email" :email,
+    "date" : date,
+    "time" : date,
+    "question" : question
+};
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8081/session");
+
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = () => console.log(xhr.responseText);
+
+            xhr.send(JSON.stringify(json));
+
+
+        }
+
+    </script>
 </head>
 
 <body>
@@ -67,18 +101,18 @@
         </div>
     </div><!-- End Breadcrumbs -->
 <div style="border-width: 10px">
-    <form>
+    <form name="session-form" onsubmit="return createSession()">
         <!-- 2 column grid layout with text inputs for the first and last names -->
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <input type="text" id="form6Example1" class="form-control" />
+                    <input name="first-name" type="text" id="form6Example1" class="form-control" />
                     <label class="form-label" for="form6Example1">First name</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline">
-                    <input type="text" id="form6Example2" class="form-control" />
+                    <input name="last-name" type="text" id="form6Example2" class="form-control" />
                     <label class="form-label" for="form6Example2">Last name</label>
                 </div>
             </div>
@@ -86,41 +120,41 @@
 
         <!-- Text input -->
         <div class="form-outline mb-4">
-            <input type="text" id="form6Example3" class="form-control" />
+            <input name="university"  type="text" id="form6Example3" class="form-control" />
             <label class="form-label" for="form6Example3">University</label>
         </div>
 
         <!-- Text input -->
         <div class="form-outline mb-4">
-            <input type="text" id="form6Example4" class="form-control" />
+            <input name="address"  type="text" id="form6Example4" class="form-control" />
             <label class="form-label" for="form6Example4">Address</label>
         </div>
 
         <!-- Email input -->
         <div class="form-outline mb-4">
-            <input type="email" id="form6Example5" class="form-control" />
+            <input name="email" type="email" id="form6Example5" class="form-control" />
             <label class="form-label" for="form6Example5">Email</label>
         </div>
 
         <!-- Number input -->
         <div class="form-outline mb-4">
-            <input type="number" id="form6Example6" class="form-control" />
+            <input name="phone" type="number" id="form6Example6" class="form-control" />
             <label class="form-label" for="form6Example6">Phone</label>
         </div>
 
         <div class="form-outline mb-4">
-            <input type="date" id="form6Example8" class="form-control" />
+            <input name="date" type="date" id="form6Example8" class="form-control" />
             <label class="form-label" for="form6Example6">Date</label>
         </div>
 
         <div class="form-outline mb-4">
-            <input type="time" id="form6Example9" class="form-control" />
+            <input name="time" type="time" id="form6Example9" class="form-control" />
             <label class="form-label" for="form6Example6">Time</label>
         </div>
 
         <!-- Message input -->
         <div class="form-outline mb-4">
-            <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+            <textarea name="question" class="form-control" id="form6Example7" rows="4"></textarea>
             <label class="form-label" for="form6Example7">Add your questions/topic here</label>
         </div>
 
